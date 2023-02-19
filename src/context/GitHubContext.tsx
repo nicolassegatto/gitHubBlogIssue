@@ -55,6 +55,7 @@ interface GitHubIssuesProps{
     comments: number,
     created_at: string,
     body: string
+    html_url: string
   }[]
 }
 
@@ -77,6 +78,7 @@ interface GitHubContextType {
   issues: GitHubIssuesProps,
   selectedIssue: GitHubSelectedIssueProps,
   SetIssue: (issue:GitHubSelectedIssueProps) => void,
+  SearchIssues: (query:string) => void,
 }
 
 export const GitHubContext = createContext({} as GitHubContextType)
@@ -89,6 +91,10 @@ export function GitHubProvider ({children} : GitHubContextTypeProps) {
 
   function SetIssue(issue:GitHubSelectedIssueProps) {
     SetSelectedIssue(issue)
+  }
+
+  function SearchIssues(query:string) {
+    getIssues(query)
   }
 
   const getProfile = useCallback(async () => {
@@ -114,8 +120,9 @@ export function GitHubProvider ({children} : GitHubContextTypeProps) {
     setIssues(response.data)
   },[])
 
+
   useEffect(() =>{
-    getProfile()
+    getProfile(),
     getIssues()
   },[getProfile,getIssues])
 
@@ -126,6 +133,7 @@ export function GitHubProvider ({children} : GitHubContextTypeProps) {
         issues,
         selectedIssue,
         SetIssue,
+        SearchIssues,
       }
     }>
       {children}

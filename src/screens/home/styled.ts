@@ -13,3 +13,13 @@ export const CardGridContent = styled.div`
   grid-row-gap: 2rem;
   padding-bottom: 5rem;
 `
+
+export const CardNoContent = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  opacity: 0.3;
+  padding-top: 5rem;
+`

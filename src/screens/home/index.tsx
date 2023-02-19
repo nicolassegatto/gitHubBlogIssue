@@ -3,30 +3,34 @@ import { Card } from "../../components/Card";
 import { Profile } from "../../components/Profile";
 import { SearchBar } from "../../components/SearchBar";
 import { GitHubContext } from "../../context/GitHubContext";
-import { CardGridContent, HomeContainer } from "./styled";
+import { CardGridContent, CardNoContent, HomeContainer } from "./styled";
 
-export function Home () {
+export function Home() {
 
   const { issues } = useContext(GitHubContext)
 
   if (issues.total_count >= 1) {
-    return(
+    return (
       <HomeContainer>
-        <Profile/>
-        <SearchBar/>
+        <Profile />
+        <SearchBar />
         <CardGridContent>
           {issues.items.map(OBJ => {
-            return <Card key={OBJ.id} issue={OBJ}/>
+            return <Card key={OBJ.id} issue={OBJ} />
           })}
         </CardGridContent>
       </HomeContainer>
     )
-  }else{
-    return(
+  } else {
+    return (
       <HomeContainer>
-        <Profile/>
+        <Profile />
+        <SearchBar />
+        <CardNoContent>
+          <p>Não encontramos nenhum post para a pesquisa solicitada</p><i className="fa-solid fa-face-sad-cry" />
+        </CardNoContent>
       </HomeContainer>
     )
   }
-  
+
 }
